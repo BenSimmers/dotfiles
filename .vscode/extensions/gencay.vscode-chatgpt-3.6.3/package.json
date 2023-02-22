@@ -1,0 +1,506 @@
+{
+	"name": "vscode-chatgpt",
+	"publisher": "gencay",
+	"displayName": "ChatGPT",
+	"icon": "images/ai-logo.jpg",
+	"description": "Use browser or official API integration for OpenAI ChatGPT, GPT3 and Codex. Create new files & projects with one click. Copilot to learn code, add tests via GPT models. Google LaMDA Bard integration is work-in-progress.",
+	"version": "3.6.3",
+	"aiKey": "d91a151b-a961-48f9-b162-55c5cd5d5356",
+	"repository": {
+		"url": "https://github.com/gencay/vscode-chatgpt"
+	},
+	"engines": {
+		"vscode": "^1.73.0"
+	},
+	"categories": [
+		"Testing",
+		"Data Science",
+		"Formatters",
+		"Programming Languages",
+		"Linters"
+	],
+	"keywords": [
+		"chatgpt",
+		"lamda",
+		"bard",
+		"gpt",
+		"gpt3",
+		"codex",
+		"openai",
+		"testing",
+		"find bugs",
+		"copilot",
+		"ai"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"menus": {
+			"editor/context": [
+				{
+					"command": "vscode-chatgpt.addTests",
+					"group": "chatGpt@1",
+					"when": "editorHasSelection && addTests-enabled"
+				},
+				{
+					"command": "vscode-chatgpt.findProblems",
+					"group": "chatGpt@2",
+					"when": "editorHasSelection && findProblems-enabled"
+				},
+				{
+					"command": "vscode-chatgpt.optimize",
+					"group": "chatGpt@3",
+					"when": "editorHasSelection && optimize-enabled"
+				},
+				{
+					"command": "vscode-chatgpt.explain",
+					"group": "chatGpt@4",
+					"when": "editorHasSelection && explain-enabled"
+				},
+				{
+					"command": "vscode-chatgpt.addComments",
+					"group": "chatGpt@5",
+					"when": "editorHasSelection && addComments-enabled"
+				},
+				{
+					"command": "vscode-chatgpt.completeCode",
+					"group": "chatGpt@6",
+					"when": "editorHasSelection && completeCode-enabled"
+				},
+				{
+					"command": "vscode-chatgpt.adhoc",
+					"group": "chatGpt@7",
+					"when": "editorHasSelection && adhoc-enabled"
+				},
+				{
+					"command": "vscode-chatgpt.customPrompt1",
+					"group": "chatGpt@8",
+					"when": "editorHasSelection && customPrompt1-enabled"
+				},
+				{
+					"command": "vscode-chatgpt.customPrompt2",
+					"group": "chatGpt@9",
+					"when": "editorHasSelection && customPrompt2-enabled"
+				}
+			]
+		},
+		"keybindings": [
+			{
+				"command": "vscode-chatgpt.addTests",
+				"key": "ctrl+k ctrl+shift+1",
+				"mac": "cmd+k cmd+shift+1",
+				"when": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.findProblems",
+				"key": "ctrl+k ctrl+shift+2",
+				"mac": "cmd+k cmd+shift+2",
+				"when": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.optimize",
+				"key": "ctrl+k ctrl+shift+3",
+				"mac": "cmd+k cmd+shift+3",
+				"when": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.explain",
+				"key": "ctrl+k ctrl+shift+4",
+				"mac": "cmd+k cmd+shift+4",
+				"when": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.addComments",
+				"key": "ctrl+k ctrl+shift+5",
+				"mac": "cmd+k cmd+shift+5",
+				"when": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.completeCode",
+				"key": "ctrl+k ctrl+shift+6",
+				"mac": "cmd+k cmd+shift+6",
+				"when": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.adhoc",
+				"key": "ctrl+k ctrl+shift+7",
+				"mac": "cmd+k cmd+shift+7",
+				"when": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.customPrompt1",
+				"key": "ctrl+k ctrl+shift+8",
+				"mac": "cmd+k cmd+shift+8",
+				"when": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.customPrompt2",
+				"key": "ctrl+k ctrl+shift+9",
+				"mac": "cmd+k cmd+shift+9",
+				"when": "editorHasSelection"
+			}
+		],
+		"commands": [
+			{
+				"command": "vscode-chatgpt.freeText",
+				"title": "ChatGPT: Ask anything"
+			},
+			{
+				"command": "vscode-chatgpt.clearSession",
+				"title": "ChatGPT: Reset session"
+			},
+			{
+				"command": "vscode-chatgpt.addTests",
+				"title": "ChatGPT: Add tests",
+				"enablement": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.findProblems",
+				"title": "ChatGPT: Find bugs",
+				"enablement": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.optimize",
+				"title": "ChatGPT: Optimize",
+				"enablement": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.explain",
+				"title": "ChatGPT: Explain",
+				"enablement": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.addComments",
+				"title": "ChatGPT: Add comments",
+				"enablement": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.completeCode",
+				"title": "ChatGPT: Complete code",
+				"enablement": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.adhoc",
+				"title": "ChatGPT: Ad-hoc prompt",
+				"enablement": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.customPrompt1",
+				"title": "ChatGPT: Custom prompt 1",
+				"enablement": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.customPrompt2",
+				"title": "ChatGPT: Custom prompt 2",
+				"enablement": "editorHasSelection"
+			},
+			{
+				"command": "vscode-chatgpt.clearConversation",
+				"title": "ChatGPT: Clear conversation"
+			},
+			{
+				"command": "vscode-chatgpt.exportConversation",
+				"title": "ChatGPT: Export conversation"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "vscode-chatgpt-view-container",
+					"title": "ChatGPT",
+					"icon": "images/openai-transparent.png"
+				}
+			]
+		},
+		"views": {
+			"vscode-chatgpt-view-container": [
+				{
+					"type": "webview",
+					"id": "vscode-chatgpt.view",
+					"name": "Conversation window"
+				}
+			]
+		},
+		"configuration": {
+			"title": "ChatGPT",
+			"properties": {
+				"chatgpt.method": {
+					"type": "string",
+					"enum": [
+						"Browser Auto-login",
+						"GPT3 OpenAI API Key"
+					],
+					"default": "GPT3 OpenAI API Key",
+					"markdownDescription": "Choose your integration preference. \n\n - `GPT3 OpenAI API Key` Use OpenAI's official GPT3 APIs. [GPT3](https://github.com/gencay/vscode-chatgpt#api-key-setup) \n\n - `Browser Auto-login` Choose whether you'd like to let the extension automatically log you in using puppeteer: [Zero-config browser based communication with ChatGPT](https://github.com/gencay/vscode-chatgpt#browser-setup)",
+					"order": 1
+				},
+				"chatgpt.authenticationType": {
+					"type": "string",
+					"enum": [
+						"OpenAI Authentication",
+						"Google Authentication",
+						"Microsoft Authentication"
+					],
+					"default": "OpenAI Authentication",
+					"markdownDescription": "Choose your login type to autofill the provided email/password in the authentication flow. \n\n - `OpenAI Authentication` Standard authentication method. Use this if you signed up using your email address instead of Google/Microsoft authentication. \n\n - `Google Authentication` Use Google Authentication to login to OpenAI \n\n - `Microsoft Authentication` Use Microsoft Authentication to login to OpenAI",
+					"order": 2
+				},
+				"chatgpt.emailAddress": {
+					"type": "string",
+					"default": null,
+					"description": "[Optional] Your openai.com login email address. Provide this if you want to auto-fill your email address during autologin. You don't have to provide this if you want to fill it during login.",
+					"order": 3
+				},
+				"chatgpt.password": {
+					"type": "string",
+					"default": null,
+					"description": "[Optional] Your openai.com login password. Provide this if you want to auto-fill your password during autologin. You don't have to provide this if you want to fill it during login.",
+					"order": 4
+				},
+				"chatgpt.proxyServer": {
+					"type": "string",
+					"default": null,
+					"markdownDescription": "[Optional] The proxy server you'd like to use. Supports HTTP proxies only, don't provide the protocol in the setting. Format example: \n\n `authenticated`:`myUsername:myPassword@my.proxy.com:3001` \n\n `anonymous`: `204.137.172.37:999`",
+					"order": 5
+				},
+				"chatgpt.chromiumPath": {
+					"type": "string",
+					"markdownDescription": "The executable path of your Chromium-based browser. i.e. `Chrome`, `Edge` etc. \n\n Unless you override, we use the default paths per Operating System for `Chrome`. \n\n **Windows**\n C:\\\\Program Files\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe \n\n **MAC**\n /Applications/Google Chrome.app/Contents/MacOS/Google Chrome \n\n You can use Chromium based Edge as well. e.g. \n\n **Windows Edge**\n C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe \n\n **You can find the executable path for your preferred browser by going to these URLs: `chrome://version` or `edge://version`**",
+					"order": 6
+				},
+				"chatgpt.promptPrefix.addTests": {
+					"type": "string",
+					"default": "Implement tests for the following code",
+					"description": "The prompt prefix used for adding tests for the selected code",
+					"order": 7
+				},
+				"chatgpt.promptPrefix.addTests-enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the prompt prefix used for adding tests for the selected code in the context menu",
+					"order": 8
+				},
+				"chatgpt.promptPrefix.findProblems": {
+					"type": "string",
+					"default": "Find problems with the following code",
+					"description": "The prompt prefix used for finding problems for the selected code",
+					"order": 9
+				},
+				"chatgpt.promptPrefix.findProblems-enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the prompt prefix used for finding problems for the selected code in the context menu",
+					"order": 10
+				},
+				"chatgpt.promptPrefix.optimize": {
+					"type": "string",
+					"default": "Optimize the following code",
+					"description": "The prompt prefix used for optimizing the selected code",
+					"order": 11
+				},
+				"chatgpt.promptPrefix.optimize-enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the prompt prefix used for optimizing the selected code in the context menu",
+					"order": 12
+				},
+				"chatgpt.promptPrefix.explain": {
+					"type": "string",
+					"default": "Explain the following code",
+					"description": "The prompt prefix used for explaining the selected code",
+					"order": 13
+				},
+				"chatgpt.promptPrefix.explain-enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the prompt prefix used for explaining the selected code in the context menu",
+					"order": 14
+				},
+				"chatgpt.promptPrefix.addComments": {
+					"type": "string",
+					"default": "Add comments for the following code",
+					"description": "The prompt prefix used for adding comments for the selected code",
+					"order": 15
+				},
+				"chatgpt.promptPrefix.addComments-enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the prompt prefix used for adding comments for the selected code in the context menu",
+					"order": 16
+				},
+				"chatgpt.promptPrefix.completeCode": {
+					"type": "string",
+					"default": "Complete the following code",
+					"description": "The prompt prefix used for completing the selected code",
+					"order": 17
+				},
+				"chatgpt.promptPrefix.completeCode-enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the prompt prefix used for completing the selected code in the context menu",
+					"order": 18
+				},
+				"chatgpt.promptPrefix.customPrompt1": {
+					"type": "string",
+					"default": "",
+					"description": "Your custom prompt. It's disabled by default, please set to a custom prompt and enable it if you prefer using customized prompt",
+					"order": 19
+				},
+				"chatgpt.promptPrefix.customPrompt1-enabled": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Enable the prompt prefix used for your custom prompt. The default value is empty, if you enable this item make sure to set this `chatgpt.promptPrefix.customPrompt1`",
+					"order": 20
+				},
+				"chatgpt.promptPrefix.customPrompt2": {
+					"type": "string",
+					"default": "",
+					"description": "Your custom prompt. It's disabled by default, please set to a custom prompt and enable it if you prefer using customized prompt",
+					"order": 21
+				},
+				"chatgpt.promptPrefix.customPrompt2-enabled": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Enable the prompt prefix used for your custom prompt. The default value is empty, if you enable this item make sure to set this `chatgpt.promptPrefix.customPrompt2`",
+					"order": 22
+				},
+				"chatgpt.promptPrefix.adhoc-enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the prompt prefix used for adhoc command for the selected code in the context menu",
+					"order": 23
+				},
+				"chatgpt.gpt3.apiKey": {
+					"type": "string",
+					"markdownDescription": "OpenAI API key. [Get your API Key from OpenAI](https://beta.openai.com/account/api-keys). \n\n**Please enable OpenAI API Key method to use this setting.**",
+					"order": 24
+				},
+				"chatgpt.gpt3.organization": {
+					"type": "string",
+					"markdownDescription": "OpenAI Organization ID. [Documentation](https://beta.openai.com/docs/api-reference/requesting-organization). \n\n**Please enable OpenAI API Key method to use this setting.**",
+					"order": 25
+				},
+				"chatgpt.gpt3.model": {
+					"type": "string",
+					"enum": [
+						"text-davinci-002-render",
+						"text-davinci-002-render-paid",
+						"text-davinci-002-render-sha",
+						"text-davinci-003",
+						"text-curie-001",
+						"text-babbage-001",
+						"text-ada-001",
+						"code-davinci-002",
+						"code-cushman-001"
+					],
+					"default": "text-davinci-003",
+					"markdownDescription": "OpenAI models to use for your prompts. [Documentation](https://beta.openai.com/docs/models/models). \n\n**If you face 400 Bad Request please make sure you are using the right model for your integration method.**",
+					"order": 26,
+					"enumItemLabels": [
+						"Browser autologin - default ChatGPT model",
+						"Browser autologin - ChatGPT Plus model",
+						"Browser autologin - ChatGPT Turbo Plus model",
+						"OpenAI API Key - text-davinci-003",
+						"OpenAI API Key - text-curie-001",
+						"OpenAI API Key - text-babbage-001",
+						"OpenAI API Key - text-ada-001",
+						"OpenAI API Key - code-davinci-002",
+						"OpenAI API Key - code-cushman-001"
+					],
+					"markdownEnumDescriptions": [
+						"Free Tier ChatGPT model that's used in chat.openai.com",
+						"ChatGPT Plus subscription model that's used in chat.openai.com. This requires a subscription on OpenAI side, please make sure you are eligible to use this model.",
+						"ChatGPT Turbo Plus subscription model that's used in chat.openai.com. This requires a subscription on OpenAI side, please make sure you are eligible to use this model."
+					]
+				},
+				"chatgpt.gpt3.maxTokens": {
+					"type": "number",
+					"default": 1024,
+					"markdownDescription": "The maximum number of tokens to generate in the completion. \n\nThe token count of your prompt plus max_tokens cannot exceed the model's context length. Most models have a context length of 2048 tokens (except for the newest models, which support 4096). [Documentation](https://beta.openai.com/docs/api-reference/completions/create#completions/create-max_tokens) \n\n**Please enable OpenAI API Key method to use this setting.**",
+					"order": 27
+				},
+				"chatgpt.gpt3.temperature": {
+					"type": "number",
+					"default": 1,
+					"markdownDescription": "What sampling temperature to use. Higher values means the model will take more risks. Try 0.9 for more creative applications, and 0 (argmax sampling) for ones with a well-defined answer.\n\nIt is recommended altering this or top_p but not both. [Documentation](https://beta.openai.com/docs/api-reference/completions/create#completions/create-temperature) \n\n**Please enable OpenAI API Key method to use this setting.**",
+					"order": 28
+				},
+				"chatgpt.gpt3.top_p": {
+					"type": "number",
+					"default": 1,
+					"markdownDescription": "An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. \n\nIt is recommended altering this or temperature but not both. [Documentation](https://beta.openai.com/docs/api-reference/completions/create#completions/create-top_p) \n\n**Please enable OpenAI API Key method to use this setting.**",
+					"order": 29
+				},
+				"chatgpt.response.showNotification": {
+					"type": "boolean",
+					"default": false,
+					"description": "Choose whether you'd like to receive a notification when ChatGPT bot responds to your query.",
+					"order": 30
+				},
+				"chatgpt.telemetry.disable": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Specify if you want to disable the telemetry. This extension also respects your default vs-code telemetry setting `telemetry.telemetryLevel`. We check both settings for telemetry. **Important**: No user data is tracked, we only use telemetry to see what is used, and what isn't. This allows us to make accurate decisions on what to add or enhance to the extension.",
+					"order": 31
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "rimraf out && npm run esbuild-base -- --minify",
+		"esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+		"build": "npm run -S esbuild-base -- --sourcemap",
+		"watch": "npm run -S esbuild-base -- --sourcemap --watch",
+		"fmt": "prettier --write \"src/**/*.ts\"&& npm run test -- --fix",
+		"test": "eslint src --ext ts && tsc --noEmit"
+	},
+	"devDependencies": {
+		"@types/glob": "^8.0.0",
+		"@types/isomorphic-fetch": "^0.0.36",
+		"@types/mocha": "^10.0.1",
+		"@types/node": "16.x",
+		"@types/uuid": "^9.0.0",
+		"@types/vscode": "^1.73.0",
+		"@types/vscode-webview": "^1.57.0",
+		"@typescript-eslint/eslint-plugin": "^5.45.0",
+		"@typescript-eslint/parser": "^5.45.0",
+		"@vscode/test-electron": "^2.2.0",
+		"esbuild": "^0.15.18",
+		"eslint": "^8.28.0",
+		"glob": "^8.0.3",
+		"mocha": "^10.1.0",
+		"ts-loader": "^9.4.1",
+		"typescript": "^4.9.3"
+	},
+	"dependencies": {
+		"@vscode/extension-telemetry": "^0.6.2",
+		"chatgpt": "^4.6.0",
+		"delay": "^5.0.0",
+		"isomorphic-fetch": "^3.0.0",
+		"openai": "^3.1.0",
+		"puppeteer": "^19.4.0",
+		"puppeteer-extra": "^3.3.4",
+		"puppeteer-extra-plugin-stealth": "^2.11.1",
+		"puppeteer-extra-plugin-user-data-dir": "^2.4.0",
+		"puppeteer-extra-plugin-user-preferences": "^2.4.0",
+		"remark": "^14.0.2",
+		"strip-markdown": "^5.0.0",
+		"uuid": "^9.0.0"
+	},
+	"resolutions": {
+		"clone-deep": "^4.0.1"
+	},
+	"__metadata": {
+		"id": "1afd0a37-77f3-45af-86e1-df4c207a0192",
+		"publisherId": "064b4ed3-ffb9-4e7f-8e30-96ff0bda8d23",
+		"publisherDisplayName": "Ali Gençay",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"updated": true,
+		"isPreReleaseVersion": false,
+		"installedTimestamp": 1676946624342,
+		"preRelease": false
+	}
+}
